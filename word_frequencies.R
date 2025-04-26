@@ -25,7 +25,7 @@ set.seed(1234)
 
 # Extracting top 50 unigrams for Treasure Island
 treasure_island_unigram_top <- head(treasure_island_unigram, 50) %>%
-  mutate(color_group = rep(c("group1", "group2", "group3"), length.out = n()))
+  mutate(color_group = rep(c("group1", "group2", "group3"), length.out = n()))   # Assigning each word to a color group randomly for visualisation aesthetics
 
 # Treasure Island unigrams wordcloud
 treasure_island_wordcloud <- ggplot(treasure_island_unigram_top, aes(label = word, size = n, color = color_group)) + 
@@ -44,7 +44,7 @@ catriona_unigram_top <- head(catriona_unigram, 50) %>%
   mutate(color_group = rep(c("group1", "group2", "group3"), length.out = n()))
 
 # Catriona unigrams wordcloud
-catriona_wordcloud <- ggplot(head(catriona_unigram_top, 50), aes(label = word, size = n, color = color_group)) +  # the value 3 is the number of colors used in the wordcloud
+catriona_wordcloud <- ggplot(head(catriona_unigram_top, 50), aes(label = word, size = n, color = color_group)) +  
   geom_text_wordcloud() + 
   scale_size_area(max_size = 20, trans = power_trans(1/.7)) + 
   scale_color_manual(values = c("group1" = "#657b9e", 
@@ -105,7 +105,7 @@ bigrams <- cleaned_set %>%
   filter(!is.na(bigram)) %>% 
   separate(bigram, c("word1", "word2"), sep = " ") %>%
   mutate(word1 = lemmatize_words(word1), word2 = lemmatize_words(word2)) %>%
-  filter(!(word1 %in% final_stopwords_set$word), !(word2 %in% final_stopwords_set$word)) %>%
+  filter(!(word1 %in% final_stopwords_set$word), !(word2 %in% final_stopwords_set$word)) %>%   # Filtering out bigrams where either word is a stopword
   count(word1, word2, book, sort = TRUE) 
 
 
@@ -154,6 +154,7 @@ catriona_bigrams_wordcloud <- ggplot(catriona_bigrams, aes(label = bigram, size 
 
 
 # Removing character names from bigrams
+# Filtering out bigrams where either word is a character name from either book
 bigrams_without_characters <- bigrams %>% 
   filter(
     !word1 %in% c('jim', 'hawkins', 'billy', 'bones','bone', 'black','dog', 'squire', 'trelawney','doctor', 'livesey','captain', 'smollett','tom','morgan','benjamin',
@@ -229,7 +230,7 @@ scottish_english <- c("a'body","a'thegether","a'thing","ken","kens","apt","ane",
                       "fyke", "weemen", "ajee", "aweel","sae","nane")
 
 
-#Detecting the scottish english terms in the corpus and visualising it 
+#Detecting Scottish English terms in the corpus and visualising them 
 scottish_english_detection <-  tokenized_set_draft %>% 
   filter(word %in% scottish_english) %>%
   group_by(book, word) %>%
@@ -255,7 +256,7 @@ scottish_english_words_visualisations <- ggplot(head(scottish_english_detection,
 
 
 
-#Extracting the common scottish english words in both books
+#Extracting the common Scottish English words in both books
 common_scottish_english_words <- scottish_english_detection %>%
   group_by(word) %>%
   filter(n_distinct(book) > 1) %>%
@@ -267,7 +268,7 @@ word_summary <- common_scottish_english_words %>%
   summarise(count = sum(total_count)) %>%
   ungroup()
 
-#Plotting the common scottish words with it's count for each book
+#Plotting the common Scottish words with their count for each book
 common_scottish_english_words_visualisation <- ggplot(common_scottish_english_words, aes(x = word, y = total_count, fill = book)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Common Scottish english terms in Catriona vs Treasure Island", x = "Word", y = "Total Count") +

@@ -8,9 +8,9 @@ cleaned_set_step1 <- novels %>%
   
   mutate(book = if_else(gutenberg_id == 30870, "Catriona","Treasure Island")) %>% select(-gutenberg_id) %>%
   
-  filter(!(book == "Catriona" & (linenumber >= 1 & linenumber <= 189 ))) %>%    # write where the preface stopped and etc 
+  filter(!(book == "Catriona" & (linenumber >= 1 & linenumber <= 189 ))) %>%    # Removing preface and other non-narrative text from Catriona (lines 1 to 189) 
   
-  filter(!(book == "Treasure Island" & (linenumber <= 224 | linenumber %in% c(250, 1867, 2306, 3792, 4636, 5749, 7534,7688)))) %>%
+  filter(!(book == "Treasure Island" & (linenumber <= 224 | linenumber %in% c(250, 1867, 2306, 3792, 4636, 5749, 7534,7688)))) %>%  # Removing known noisy lines in Treasure Island (e.g., illustrations, page numbers, etc.)
   
   mutate(text = str_trim(text)) %>%
   
@@ -74,8 +74,9 @@ cleaned_set <- cleaned_set_step1 %>%
                                         "didnae" = "did not", "hadnae" = "had not", "couldnae" = "could not", "wasnae"= "was not","isnae" = "is not", 
                                         "\\bquo'\\b" = "quote","\\bwhaur\\b" = "where", "\\bither\\b" = "either", "\\bthon\\b" = "that", "\\blikit\\b" = "liked", 
                                         "\\bweemen\\b" = "women","\\bye're\\b" = "you are", "\\bye'll\\b" = "you will", "\\baweel\\b" = "oh well", 
-                                        "\\bsae\\b" = "so","\\bnane\\b" = "not"))) %>%
-  mutate(text = str_replace_all(text, "\'", "")) 
+                                        "\\bsae\\b" = "so","\\bnane\\b" = "not"))) %>%       
+  mutate(text = str_replace_all(text, "\'", ""))       # Replacing Scottish English variants with standard English equivalents for consistency
+
 
 
 
@@ -190,10 +191,12 @@ common_additional_stopwords_visualisation <- ggplot(common_additional_stopwords,
 lemmatized_words <- word_count_after_stopwords_removal %>% 
   mutate(lemmatized_word = lemmatize_words(word)) 
 
+# Grouping lemmatized duplicates (e.g., "run", "running") and summing their word counts
 duplicate_rows <- lemmatized_words %>%
   group_by(lemmatized_word,book) %>%  
   filter(n() > 1) %>% 
   arrange(lemmatized_word)       
+
 
 dataset_after_lemmatization <- duplicate_rows %>% 
   group_by(lemmatized_word, book) %>% 

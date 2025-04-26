@@ -2,13 +2,13 @@
 
 # Calculating tf-idf of unigrams
 unigram_tf_idf <- unigrams %>% 
-  bind_tf_idf(word, book, n) %>% 
+  bind_tf_idf(word, book, n) %>%   # Computing term frequency-inverse document frequency for each term by book
   select(-total) %>% arrange(desc(tf_idf))
 
 # Visualisation of tf-idf of unigrams
 unigrams_tf_idf_visualisation <- unigram_tf_idf %>%
   group_by(book) %>%
-  slice_max(tf_idf, n = 25, with_ties = FALSE) %>%   #takes top 25 
+  slice_max(tf_idf, n = 25, with_ties = FALSE) %>%   # Takes top 25  terms per book
   ungroup() %>%
   ggplot(aes(tf_idf, fct_reorder(word, tf_idf), fill = book)) +
   geom_col(show.legend = FALSE) +
@@ -41,7 +41,7 @@ unigrams_tf_idf_without_characters <- unigrams %>%
   filter(!word %in% c('jim', 'hawkins', 'billy', 'bones','black','dog', 'squire', 'trelawney','doctor', 'livesey','captain', 'smollett',
                       'john', 'silver','ben', 'gunn','pew','israel', 'hands','flint','tom', 'redruth','david','balfour','alan','breck',
                       'stewart','lord','william','grant','prestongrange','james','glens','macgregor','drummond','duke','argyll','simon',
-                      'fraser','prophet','peden','hugh','palliser')) %>%
+                      'fraser','prophet','peden','hugh','palliser')) %>%     # Removing character names from both books before calculating tf-idf
   bind_tf_idf(word, book, n) %>% 
   select(-total) %>% arrange(desc(tf_idf))
 
@@ -81,7 +81,7 @@ bigrams_tf_idf_without_characters <- bigrams %>%
   arrange(desc(tf_idf))
 
 
-# Visualisation of if-idf of bigrams after removing character names
+# Visualisation of tf-idf of bigrams after removing character names
 bigrams_tf_idf_without_characters_visualisation <- bigrams_tf_idf_without_characters %>%
   group_by(book) %>%
   slice_max(tf_idf, n = 25, with_ties = FALSE) %>%

@@ -1,11 +1,11 @@
 ## Topic modelling ----
 # Topic modelling by book
 # Calculating the dtm matrix
-books_dtm <- unigrams %>%  # this data is after stopwords removal and after lemmatization 
-  cast_dtm(book, word,n)    #cast_dtm creates a document-term matrix from the dataset, each row is book, column represents word, n = frequency of each word in each book
+books_dtm <- unigrams %>%  # This data is after stopwords removal and after lemmatization 
+  cast_dtm(book, word,n)    # cast_dtm creates a document-term matrix from the dataset, each row is book, column represents word, n = frequency of each word in each book
 
 # Finding optimal topic number 
-values_for_books <- FindTopicsNumber(       # determine optimal number of topics for LDA model
+values_for_books <- FindTopicsNumber(       # Determine optimal number of topics for LDA model
   books_dtm,
   topics = seq(1, 15, by = 1),
   metrics = c("Griffiths2004", "CaoJuan2009","Arun2010","Deveaud2014"),
@@ -30,23 +30,22 @@ book_wise_topicmodeling_number_of_topics
 books_lda <- LDA(books_dtm, k = 6, control = list(seed = 1234))
 
 #terms(books_lda,5) # you can see top 5 words for each topic
-book_topics <- tidy(books_lda, matrix = "beta")    # probability of each word belonging to each topic
+book_topics <- tidy(books_lda, matrix = "beta")    # Each row gives the robability(beta) of a word belonging to a specific topic
 
 
-#This turned the model into a one-topic-per-term-per-row format. 
-#LDA generates a model that associates each document, here book, with a probability distribution over topics
+#This turned the model into a one-topic-per-term-per-row format. LDA generates a model that associates each document, here book, with a probability distribution over topics
 book_topics_top_terms <- book_topics %>%
   group_by(topic) %>%
-  slice_max(beta, n = 99) %>%     # get top 10 words for each topic
+  slice_max(beta, n = 99) %>%     # Get top 99 words for each topic
   ungroup() %>%
   arrange(topic, -beta)
 
 
-book_topic_gamma <- tidy(books_lda, matrix = "gamma")   # gamma = topic proportion per document 
+book_topic_gamma <- tidy(books_lda, matrix = "gamma")   # Gamma matrix : probability distribution of topics within each book (document) 
 book_topic_gamma
 
 
-#Visualising out of 6 topics we obtained for the corpus, the proportion of topics in each book
+#Visualising the proportion of the 6 topics across both books 
 proportion_of_each_topic_visualisation <- book_topic_gamma %>%
   ggplot(aes(x = document, y = gamma, fill = factor(topic), label = round(gamma,2))) +
   geom_col(position = "fill") +
