@@ -1,0 +1,72 @@
+\begin{thebibliography}{99}
+
+\textbf{Bibliography}
+
+\bibitem{amirrudin2022}
+Amirrudin, A, Mustolih, A \& Ningrum, CM 2022, `The Comparative Literature Analysis of Collins’ Novel `The Hunger Games’ and Veronica Roth’s Novel `Divergent’’, \textit{ENLIT Journal}, vol. 2, no. 2, pp. 97-109,  DOI: https://doi.org/10.33654/enlit.v2i2.1917
+
+\bibitem{Arun}
+Arun, R, Suresh, V, Veni Madhavan, CE \& Narasimha Murthy, MN 2010, `On Finding the Natural Number of Topics with Latent Dirichlet Allocation: Some Observations', Zaki, M.J., Yu, J.X., Ravindran, B, Pudi, V, \textit{Advances in Knowledge Discovery and Data Mining}, vol. 6118, Springer, Berlin, Heidelberg, DOI:https://doi.org/10.1007/978-3-642-13657-3\_43
+
+\bibitem{snowballc}
+Bouchet-Valat, M, `SnowballC: Snowball Stemmers Based on the C 'libstemmer' UTF-8 Library' 2023, \textless https://CRAN.R-project.org/package=SnowballC\textgreater
+
+\bibitem{Bystrov}
+Bystrov, V, Staszewska-Bystrova, A, Winker, P \& Hoffman, M 2024, `Choosing the Number of Topics in LDA Models -A Monte Carlo Comparison of Selection Criteria', \textit{Journal of Machine Learning Research}, vol. 25, pp.1–30
+
+\bibitem{xtable}
+Dahl, DB, Scott, D, Roosen, C, Magnusson, A \& Swinton, J 2011, `xtable: Export Tables to LaTeX or HTML', \textless https://CRAN.R-project.org/package=xtable\textgreater
+
+\bibitem{Farea}
+Farea, A, Tripathi, S, Glazko, G \& Emmert-Streib, F 2024, `Investigating the optimal number of topics by advanced text-mining techniques: Sustainable energy research', \textit{Engineering Applications of Artificial Intelligence}, vol. 136, no. 108877, DOI:https://doi.org/10.1016/j.engappai.2024.108877
+
+\bibitem{tm}
+Feinerer, I, Hornik, K \& Meyer, D 2008, `Text Mining Infrastructure in R', \textit{Journal of Statistical Software}, vol. 25, no. 5, pp. 1-54, doi:10.18637/jss.v025.i05
+
+\bibitem{topicmodels}
+Gr{\"u}n, B, Hornik, K 2011, `topicmodels: \{AnRPackage\} for Fitting Topic Models', \textit{Journal of Open Source Software}, vol. 40, no. 13, pp. 1-30, doi:10.18637/jss.v040.i13
+
+\bibitem{textdata}
+Hvitfeldt, E, `textdata: Download and Load Various Text Datasets' 2024, \textless https://CRAN.R-project.org/package=textdata\textgreater 
+
+\bibitem{gutenberg}
+Johnston, M \& Robinson, D, `gutenbergr: Download and Process Public Domain Works from Project Gutenberg' 2023, \textless https://CRAN.R-project.org/package=gutenbergr\textgreater 
+
+\bibitem{karimov2024}
+Karimov, I 2024, `ROBERT LOUIS STEVENSON’S ROLE IN LITERATURE AND CULTURE’, \textit{SCIENCE AND INNOVATION INTERNATIONAL SCIENTIFIC JOURNAL}, vol. 3, no. 7, pp. 8-10,  DOI: https://doi.org/10.5281/zenodo.12730874
+
+\bibitem{ggwordcloud}
+Le Pennec, E, Slowikowski, K 2024, `ggwordcloud: A Word Cloud Geom for `ggplot2'',  \textless https://CRAN.R-project.org/package=ggwordcloud\textgreater
+
+\bibitem{Mardones}
+Mardones-Segovia, C, Wheeler, JM, Choi, HJ, Wang, S. and Cohen, AS 2023,  `Model Selection for Latent Dirichlet Allocation In Assessment Data', \textit{ Psychological Test and Assessment Modeling}, vol. 65, no. 1, pp. 3–35
+
+\bibitem{tokenizers}
+Mullen, LA, Benoit, K, Keyes, O, Selivanov, D \& Arnold, J 2018, `Fast, Consistent Tokenization of Natural Language Text', \textit{Journal of Open Source Software}, vol. 3, no. 23, doi:10.21105/joss.00655
+
+\bibitem{ldatuning}
+Nikita, M, `ldatuning: Tuning of the Latent Dirichlet Allocation Models
+Parameters' 2020, \textless https://cran.r-project.org/package=
+ldatuning\textgreater 
+
+\bibitem{pethe2023}
+Pethe, C, Kim, A, Prabhakar, R, Pial, T \& Skiena, S 2023, `STONYBOOK: A System and Resource for Large-Scale Analysis of Novels’, Department of Computer Science, Stony Brook University, NY, USA 
+
+\bibitem{catriona2009}
+Project Gutenberg 2009, \textit{Catriona by Robert Louis Stevenson}, Project Gutenberg, viewed 25 February 2025, \textless https://www.gutenberg.org/ebooks/589\textgreater
+
+\bibitem{treasure2009}
+Project Gutenberg 2009, \textit{Treasure Island by Robert Louis Stevenson}, Project Gutenberg, viewed 21 February 2025, \textless https://www.gutenberg.org/ebooks/27780\textgreater
+
+\bibitem{textstem}
+Rinker, T, `{textstem}: Tools for stemming and lemmatizing text' UTF-8 Library' 2018, \textless https://cran.r-project.org/web/packages/textstem/index.html\textgreater
+
+\bibitem{silge2006}
+Silge, J \& Robinson, D 2019, \textit{Text Mining with R}, viewed 21 February 2025, \textless https://www.tidytextmining.com/\textgreater
+
+
+\end{thebibliography}
+
+ 
+
+

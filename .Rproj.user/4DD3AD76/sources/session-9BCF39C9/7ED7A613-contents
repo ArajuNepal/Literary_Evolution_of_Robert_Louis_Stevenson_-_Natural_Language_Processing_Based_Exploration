@@ -237,7 +237,7 @@ scottish_english_detection <-  tokenized_set_draft %>%
   arrange(desc(total_count))
 
 
-scottish_english_words_visualisations <- ggplot(head(scottish_english_detection,25), aes(x = reorder(word, total_count), y = total_count, fill = book)) +
+scottish_english_words_visualisations <- ggplot(head(scottish_english_detection,50), aes(x = reorder(word, total_count), y = total_count, fill = book)) +
   geom_bar(stat = "identity") +
   coord_flip() +
   facet_wrap(~book, scales = "free_y") + # creates separate plots for each book
@@ -266,23 +266,6 @@ word_summary <- common_scottish_english_words %>%
   group_by(word, book) %>%
   summarise(count = sum(total_count)) %>%
   ungroup()
-
-common_scottish_english_words_visualisation <- ggplot(word_summary, aes(x = reorder(word, count), y = count, fill = book)) +
-  geom_bar(stat = "identity") +
-  coord_flip() +  
-  theme_minimal() +
-  labs(title = "Total count of each common word by book", x = "Words", y = "Total count") +
-  theme(legend.title = element_blank()) + 
-  theme(
-    plot.title = element_text(size = 9),         
-    axis.title = element_text(size = 9),         
-    axis.text = element_text(size = 8),           
-    legend.title = element_text(size = 8),       
-    legend.text = element_text(size = 8)
-  ) + 
-  scale_fill_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d")) 
-
-
 
 #Plotting the common scottish words with it's count for each book
 common_scottish_english_words_visualisation <- ggplot(common_scottish_english_words, aes(x = word, y = total_count, fill = book)) +

@@ -8,7 +8,7 @@ unigram_tf_idf <- unigrams %>%
 # Visualisation of tf-idf of unigrams
 unigrams_tf_idf_visualisation <- unigram_tf_idf %>%
   group_by(book) %>%
-  slice_max(tf_idf, n = 25) %>%   #takes top 15 
+  slice_max(tf_idf, n = 25, with_ties = FALSE) %>%   #takes top 25 
   ungroup() %>%
   ggplot(aes(tf_idf, fct_reorder(word, tf_idf), fill = book)) +
   geom_col(show.legend = FALSE) +
@@ -26,7 +26,7 @@ bigrams_tf_idf <- united_bigrams %>%
 # Visualisation of tf-idf of bigrams 
 bigrams_tf_idf_visualisation <- bigrams_tf_idf %>%
   group_by(book) %>%
-  slice_max(tf_idf, n = 20) %>%
+  slice_max(tf_idf, n = 25, with_ties = FALSE) %>%
   ungroup() %>%
   ggplot(aes(tf_idf, fct_reorder(bigram, tf_idf), fill = book)) +
   geom_col(show.legend = FALSE) +
@@ -38,7 +38,7 @@ bigrams_tf_idf_visualisation <- bigrams_tf_idf %>%
 
 ## Calculating tf-idf after removing character names 
 unigrams_tf_idf_without_characters <- unigrams %>% 
-  filter(!word %in% c('jim', 'hawkins', 'billy', 'bones','black','dog', 'squire', 'trelawney','doctor', 'livesey','captain', 'smollett','father',
+  filter(!word %in% c('jim', 'hawkins', 'billy', 'bones','black','dog', 'squire', 'trelawney','doctor', 'livesey','captain', 'smollett',
                       'john', 'silver','ben', 'gunn','pew','israel', 'hands','flint','tom', 'redruth','david','balfour','alan','breck',
                       'stewart','lord','william','grant','prestongrange','james','glens','macgregor','drummond','duke','argyll','simon',
                       'fraser','prophet','peden','hugh','palliser')) %>%
@@ -49,7 +49,7 @@ unigrams_tf_idf_without_characters <- unigrams %>%
 # Visualisation of tf-idf of unigrams after removing character names
 unigrams_tf_idf_without_characters_visualisation <- unigrams_tf_idf_without_characters %>%
   group_by(book) %>%
-  slice_max(tf_idf, n = 20) %>%
+  slice_max(tf_idf, n = 25, with_ties = FALSE) %>%
   ungroup() %>%
   ggplot(aes(tf_idf, fct_reorder(word, tf_idf), fill = book)) +
   geom_col(show.legend = FALSE) +
@@ -84,7 +84,7 @@ bigrams_tf_idf_without_characters <- bigrams %>%
 # Visualisation of if-idf of bigrams after removing character names
 bigrams_tf_idf_without_characters_visualisation <- bigrams_tf_idf_without_characters %>%
   group_by(book) %>%
-  slice_max(tf_idf, n = 20) %>%
+  slice_max(tf_idf, n = 25, with_ties = FALSE) %>%
   ungroup() %>%
   ggplot(aes(tf_idf, fct_reorder(bigram, tf_idf), fill = book)) +
   geom_col(show.legend = FALSE) +
