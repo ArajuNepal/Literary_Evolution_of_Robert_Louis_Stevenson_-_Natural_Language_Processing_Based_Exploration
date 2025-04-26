@@ -1,7 +1,7 @@
 
 # Digging for Treasure using NLP
 
-Analysing two standalone novels by an author to understand the evolution of the author's writing style using NLP in R programming language. 
+Analysing two standalone novels by an author to understand the evolution of the author's writing style using NLP in R programming language. This project processes the novels "Treasure Island" and "Catriona" using techniques such as text cleaning, tokenization, word frequency analysis, topic modeling, and visualisations.
 
 ## How to run the code
 1. Clone this repository of download the ZIP file.
