@@ -103,7 +103,7 @@ data(stop_words, package = "tidytext")
 
 # Adding custom stopwords to the existing stopwords dataset
 additional_stopwords <- tibble(word = c("yo", "ho", "ye", "ah", "eh", "em", "oho", "aha", "ay", "ot", "yon", "ere", "hm",
-                                        "hae", "twa","wee", "ain", "awa", "ony", "aff", "ee", "im"), lexicon = "custom")
+                                        "hae", "twa","wee", "ain", "awa", "ony", "aff", "ee", "im", "tut"), lexicon = "custom")
 
 final_stopwords_set <- bind_rows(stop_words, additional_stopwords)
 
