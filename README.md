@@ -10,7 +10,10 @@ Analysing two standalone novels by an author to understand the evolution of the 
   - Highlight the lines of code you want to run and press 'Ctrl + Enter' (Windows) or 'Cmd + Enter' (Mac).
   - Or, run source("main.R") in the console.
   - Or, select the entire script and click on the 'Run' icon in R Studio.
-When you run the script, a folder named `visualisations` will be created. The visualisations will be stored in **.jpg** and **.eps** formats. Open the **.jpg** files for viewing, as **.eps** files are designed for use in LaTeX reports. If you want to view the visualisations without running the script the outputs I obtained are arleady present in the `visualisations` folder in this repository.
+    
+When you run the script, a folder named `visualisations` will be created. The visualisations will be stored in **.jpg** and **.eps** formats. You can just open the **jpg** files for viewing, as **.eps** files are designed for use in LaTeX reports. If you want to view the visualisations without running the script, the outputs I obtained are arleady present in this repository's `visualisations` folder.
+
+Similarly, a folder named `top99_words_per_topic_bookwise` will be created when you run the script, which stores the tables of 99 words for each topic obtained from topic modelling.
 
 
 ## R Environment and Dependencies 
