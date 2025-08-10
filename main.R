@@ -6,7 +6,7 @@
 
 ## Load libraries ----
 pacman::p_load(gutenbergr, dplyr, tidytext, stringr, SnowballC, textstem, ggplot2, forcats, 
-               tidyr, tokenizers, topicmodels, tm, ldatuning, xtable, ggwordcloud, words, dictionaRy, readxl, zoo, nsyllable, patchwork)
+               tidyr, tokenizers, topicmodels, tm, ldatuning, xtable, ggwordcloud, dictionaRy, readxl, nsyllable, patchwork)
 
 
 ## Load data ----
