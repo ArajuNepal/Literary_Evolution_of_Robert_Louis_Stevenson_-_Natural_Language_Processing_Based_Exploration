@@ -12,12 +12,8 @@ catriona_unigram <- unigrams %>%
   filter(book == "Catriona") %>% arrange(desc(n))
 
 
-
-
 ## Set graph theme ----
 theme_set(theme_bw())
-
-
 
 
 ## Wordclouds ----
@@ -217,28 +213,41 @@ catriona_bigrams_no_characters_wordcloud <- ggplot(catriona_bigrams_no_character
 
 
 # List of scottish english terms used in the corpus ----
-scottish_english <- c("a'body","a'thegether","a'thing","ken","kens","apt","ane","ae","ye","aye","wi","cap'n","em","na",
-                      "naething","cam","fro","een","nae","auld","gude","em","uns",
-                      "aha","ay","ot","yon","ere","hae","twa","wee", "ain","awa","ony","aff","wot","ese","wha",
-                      "ud","si","ps","pps","abe","aft","ax","ay","bog","ebb","doo","eh","em","ere","ont","een","ho",
-                      "fir","fro","hed","ile","ing","itt","keg","mes","nne","noo","oho","ont","ony","ee","het","pu",
-                      "aff","ain","ane","apt","ava","awa","ay","aye","ca","cam","dae","db","dhu","ps","quo","pe",
-                      "eh","ere","esk","fa","fro","fu","fy","gae","gey","gie","goo","h'm","ha","hae","jee","kep","kye",
-                      "la","mar","na","neb","o't","oig","ony","ou","rei","sae","sax","sib","sic","sma","ta","ye",
-                      "tae","tis","tit","twa","uam","wee","wi","yon","unco", "frae", "brae","wouldnae","didnae", "hadnae",
-                      "couldnae", "wasnae", "isnae", "quo'", "whaur", "ither", "thon", "fash", "likit", "knowe", "fecht",
-                      "fyke", "weemen", "ajee", "aweel","sae","nane")
+non_standard_english_forms <- c("a'body","a'thegether","a'thing","ken","kens","apt","ane","ae","ye","aye","wi","cap'n","em","na","fro","auld","gude",
+                                "uns", "aha","yon","ere","hae","twa","wee","ain","awa","aff","wot","ese","wha","ud","si","ps","pps","abe","aft","ax","ay",
+                                "bog","ebb","doo","eh","ont","ho","fir","hed","ile","ing","itt","keg","mes","nne","noo","oho","ee","het","pu", "ava","ca",
+                                "db","dhu","quo","pe","esk","fa","fu","fy","gae","gey","gie","goo","h'm","ha","jee","kep","kye","la","mar","neb","o't","oig",
+                                "ony","ou","rei","sae","sib","sic", "sma","ta","tae","tis","tit","uam","unco", "frae", "brae","wouldnae","didnae", "hadnae",
+                                "couldnae", "wasnae", "isnae", "quo'", "whaur", "fash", "knowe", "fecht","fyke", "weemen", "ajee", "aweel","naething", "cam",
+                                "nae", "palfour","quot'", "ither", "thon", "likit","ye're","ye'll","nane","faither","yoursel","leddy","sax","thocht","een", 
+                                "ower","bluid", "ordinar", "eneuch", "aboot", "himsel","mysel", "sperrit", "broucht", "dacent", "deevil", "dinna", "e'en", 
+                                "hunner", "jine","aince", "anither", "doun", "freen", "gless", "micht", "pleisand", "sants", "sodger", "sune", "gane", 
+                                "wroucht", "mought", "natur", "p'int", "sich", "belanged", "burthensome", "deleeberate", "denner", "doesnae", "draps", 
+                                "effer", "fower", "hae't", "haena'", "haud","haulding", "heid", "hingin", "loaden", "lowp", "naitural", "neednae", "raither", 
+                                "richt","shouther", "spak", "straucht", "ta'en", "thegither", "me'll", "more'n", "nat'ral", "nor'ard","s'pose", "sperrits", 
+                                "warn't", "aefauld", "aften", "aheid", "amang", "awaur", "bein", "benorth", "bluidy", "bricht", "can'le", "chaipel",
+                                "chairge", "chara'ter", "contrair", "dae", "dauchter", "deeficulty",  "depairtit", "disappointit", "dreeping", "dwall", 
+                                "e'en't","elbock", "beleeven", "exempli", "expeckit","eyebrough", "fand", "forgie", "frich'ened","fule", "gairden", "hangit",
+                                "hieest", "jaicket", "judeecious","jyle", "leddies", "mainner", "maister", "maistly", "maitter", "merried", "michtnae", 
+                                "mista'en", "moesti", "neepkin", "sneeshin", "nicht", "occupeed", "oppugnants", "pairt", "pairtner","peety", "pelief",
+                                "peyond", "pold", "poleetical", "preeson", "proveesioned", "rade", "reid", "remeid", "saut", "scienteefic", "scoon'rel",
+                                "scoun'rel", "sedooctive", "seeventeen", "shune", "speerited", "speldering", "spried", "stend'o", "stupit","suffeeciency", 
+                                "suffeeciently", "tamned", "themsel", "thoucht", "bthridded", "us'll", "veecious", "waitin", "wantit", "warld", "warst",
+                                "weicht", "werenae", "whateffer", "wrunkl't", "wund", "a'most", "a'terward","ampytated", "ankercher'","argyment","babby", 
+                                "cetemery", "ch'ice", "comin", "crossin", "cur'osity","howsomever", "mayn't", "mightn't", "p'r'aps", "parlyment",
+                                "partic'lar","picter", "v'yage", "predicked","sp'iled", "unfort'nate")  #none of these were present in the words dictionary 
+                                
 
 
-#Detecting Scottish English terms in the corpus and visualising them 
-scottish_english_detection <-  tokenized_set_draft %>% 
-  filter(word %in% scottish_english) %>%
+#Detecting non standard English forms in the corpus and visualising them 
+non_standard_english_forms_detection <-  tokenized_set_draft %>% 
+  filter(word %in% non_standard_english_forms) %>%
   group_by(book, word) %>%
   summarise(total_count = sum(n)) %>%
   arrange(desc(total_count))
+non_standard_english_forms_detection
 
-
-scottish_english_words_visualisations <- ggplot(head(scottish_english_detection,50), aes(x = reorder(word, total_count), y = total_count, fill = book)) +
+non_standard_english_words_visualisations <- ggplot(head(non_standard_english_forms_detection,25), aes(x = reorder(word, total_count), y = total_count, fill = book)) +
   geom_bar(stat = "identity") +
   coord_flip() +
   facet_wrap(~book, scales = "free_y") + # creates separate plots for each book
@@ -253,27 +262,28 @@ scottish_english_words_visualisations <- ggplot(head(scottish_english_detection,
     legend.text = element_text(size = 8)
   ) + 
   scale_fill_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d"))  
-
+non_standard_english_words_visualisations
 
 
 #Extracting the common Scottish English words in both books
-common_scottish_english_words <- scottish_english_detection %>%
+common_non_standard_english_forms <- non_standard_english_forms_detection %>%
   group_by(word) %>%
   filter(n_distinct(book) > 1) %>%
   ungroup() %>%
   arrange(word)
 
-word_summary <- common_scottish_english_words %>%
+word_summary <- common_non_standard_english_forms %>%
   group_by(word, book) %>%
   summarise(count = sum(total_count)) %>%
   ungroup()
 
 #Plotting the common Scottish words with their count for each book
-common_scottish_english_words_visualisation <- ggplot(common_scottish_english_words, aes(x = word, y = total_count, fill = book)) +
+common_non_standard_english_forms_visualisation <- ggplot(common_non_standard_english_forms, aes(x = word, y = total_count, fill = book)) +
   geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Common Scottish english terms in Catriona vs Treasure Island", x = "Word", y = "Total Count") +
+  labs(title = "Common non-standard English forms", x = "Word", y = "Total Count") +
   scale_fill_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d")) +
   theme_minimal() 
 
+common_non_standard_english_forms_visualisation
 
 

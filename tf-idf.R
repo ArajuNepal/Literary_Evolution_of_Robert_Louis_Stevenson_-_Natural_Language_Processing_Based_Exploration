@@ -16,7 +16,17 @@ unigrams_tf_idf_visualisation <- unigram_tf_idf %>%
   labs(x = "tf-idf", y = NULL) +
   scale_fill_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d")) 
 
-
+#Presentation
+unigrams_tf_idf_visualisation_presentation <- unigram_tf_idf %>%
+  group_by(book) %>%
+  slice_max(tf_idf, n = 10, with_ties = FALSE) %>%   # Takes top 25  terms per book
+  ungroup() %>%
+  ggplot(aes(tf_idf, fct_reorder(word, tf_idf), fill = book)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~book, ncol = 2, scales = "free") +
+  labs(x = "tf-idf", y = NULL) +
+  scale_fill_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d")) 
+unigrams_tf_idf_visualisation_presentation
 
 # Calculating tf-idf of bigrams
 bigrams_tf_idf <- united_bigrams %>% 
@@ -34,6 +44,18 @@ bigrams_tf_idf_visualisation <- bigrams_tf_idf %>%
   labs(x = "tf-idf", y = NULL) +
   scale_fill_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d"))
 
+
+# For presentation
+bigrams_tf_idf_visualisation_presentation <- bigrams_tf_idf %>%
+  group_by(book) %>%
+  slice_max(tf_idf, n = 10, with_ties = FALSE) %>%
+  ungroup() %>%
+  ggplot(aes(tf_idf, fct_reorder(bigram, tf_idf), fill = book)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~book, ncol = 2, scales = "free") +
+  labs(x = "tf-idf", y = NULL) +
+  scale_fill_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d"))
+bigrams_tf_idf_visualisation_presentation
 
 
 ## Calculating tf-idf after removing character names 
@@ -57,6 +79,18 @@ unigrams_tf_idf_without_characters_visualisation <- unigrams_tf_idf_without_char
   labs(x = "tf-idf", y = NULL) +
   scale_fill_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d"))
 
+
+# For presentation
+unigrams_tf_idf_without_characters_visualisation_presentation <- unigrams_tf_idf_without_characters %>%
+  group_by(book) %>%
+  slice_max(tf_idf, n = 10, with_ties = FALSE) %>%
+  ungroup() %>%
+  ggplot(aes(tf_idf, fct_reorder(word, tf_idf), fill = book)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~book, ncol = 2, scales = "free") +
+  labs(x = "tf-idf", y = NULL) +
+  scale_fill_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d"))
+unigrams_tf_idf_without_characters_visualisation_presentation
 
 
 # Calculating tf-idf of bigrams after removing character names 
@@ -91,4 +125,16 @@ bigrams_tf_idf_without_characters_visualisation <- bigrams_tf_idf_without_charac
   facet_wrap(~book, ncol = 2, scales = "free") +
   labs(x = "tf-idf", y = NULL) +
   scale_fill_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d"))
+
+
+bigrams_tf_idf_without_characters_visualisation_presentation <- bigrams_tf_idf_without_characters %>%
+  group_by(book) %>%
+  slice_max(tf_idf, n = 10, with_ties = FALSE) %>%
+  ungroup() %>%
+  ggplot(aes(tf_idf, fct_reorder(bigram, tf_idf), fill = book)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~book, ncol = 2, scales = "free") +
+  labs(x = "tf-idf", y = NULL) +
+  scale_fill_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d"))
+bigrams_tf_idf_without_characters_visualisation_presentation
 

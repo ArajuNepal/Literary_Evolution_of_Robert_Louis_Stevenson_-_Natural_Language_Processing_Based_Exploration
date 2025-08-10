@@ -1,12 +1,12 @@
 # Description: Main script file for running the complete NLP pipeline to study the  differences/similarities between 'Treasure Island' and 'Catriona' using NLP.
 #              Includes loading libraries, loading data, data processing, word frequency analysis, TF-IDF analysis, topic modelling and exporting visualisations
 # Author: Araju Mepal
-# Last modified: April 10, 2025
+# Last modified: August 10, 2025
 
 
 ## Load libraries ----
 pacman::p_load(gutenbergr, dplyr, tidytext, stringr, SnowballC, textstem, ggplot2, forcats, 
-               tidyr, tokenizers, topicmodels, tm, ldatuning, xtable, ggwordcloud)
+               tidyr, tokenizers, topicmodels, tm, ldatuning, xtable, ggwordcloud, words, dictionaRy, readxl, zoo, nsyllable, patchwork)
 
 
 ## Load data ----
@@ -22,14 +22,17 @@ novels <- books %>%
   mutate(linenumber = row_number(), chapter = cumsum(str_detect(text, regex("^chapter [ivxlcdm]+$"))), 
          part = cumsum(str_detect(text, regex("^part [ivxlcdm]+$")))) %>% 
   ungroup()
+novels
 
 
 
 ## Load pre-processing and analysis scripts ----
-source("data_cleaning.R")        # Handles tokenization, stopword removal, lemmatization 
-source("tf-idf.R")               # Performs tf-idf analysis and visualisation
-source("word_frequencies.R")     # Performs unigrams/bigrams frequency analysis and word cloud visualisations
-source("topic_modelling.R")      # Implements LDA topic modelling
+source("data_cleaning.R")             # Handles tokenization, stopword removal, lemmatization 
+source("tf-idf.R")                    # Performs tf-idf analysis and visualisation
+source("word_frequencies.R")          # Performs unigrams/bigrams frequency analysis and word cloud visualisations
+source("topic_modelling.R")           # Implements LDA topic modelling
+source("sentiment_analysis.R")        # Implements sentiment analysis
+source("complex_and_simple_words.R")  # Categorising unigrams as simple or complex
 
 
 visualisation_folder_path <- "visualisations"
@@ -42,10 +45,8 @@ if (!dir.exists(visualisation_folder_path)) {
 print("The tokenized set is as follows:")
 tokenized_set
 
-
 print("The final set of stopwords, that is available stop_words set plus custom stopwords is as follows:")
 final_stopwords_set
-
 
 print("The set of words after removal of stopwords is as follows:")
 stopwords_removed_set
@@ -61,16 +62,16 @@ ggsave("visualisations/common_additional_stopwords_visualisation.eps", plot = co
 ggsave("visualisations/common_additional_stopwords_visualisation.jpg", plot = common_additional_stopwords_visualisation, width = 4, height = 4, dpi = 300)
 
 
-print("List of manually identified Scottish English terms from the corpus is as follows:")
-scottish_english_detection
-ggsave("visualisations/scottish_english_words_visualisations.eps", plot = scottish_english_words_visualisations, width = 5, height = 7, dpi = 300)
-ggsave("visualisations/scottish_english_words_visualisations.jpg", plot = scottish_english_words_visualisations, width = 5, height = 7, dpi = 300)
-
+print("List of manually identified non standard English forms from the corpus is as follows:")
+non_standard_english_forms_detection
+ggsave("visualisations/scottish_english_words_visualisations.eps", plot = non_standard_english_words_visualisations, width = 4, height = 6, dpi = 300)
+ggsave("visualisations/scottish_english_words_visualisations.jpg", plot = non_standard_english_words_visualisations, width = 4, height = 6, dpi = 300)
+non_standard_english_words_visualisations
 
 print("List of common Scottish English words present in both the books:")
 common_scottish_english_words
-ggsave("visualisations/common_scottish_english_words_visualisation.eps", plot = common_scottish_english_words_visualisation, width = 5, height = 4, dpi = 300)
-ggsave("visualisations/common_scottish_english_words_visualisation.jpg", plot = common_scottish_english_words_visualisation, width = 5, height = 4, dpi = 300)
+ggsave("visualisations/common_non_standard_english_forms_visualisation.eps", plot = common_non_standard_english_forms_visualisation, width = 4.5, height = 4, dpi = 300)
+ggsave("visualisations/common_non_standard_english_forms_visualisation.jpg", plot = common_non_standard_english_forms_visualisation, width = 4.5, height = 4, dpi = 300)
 
 
 print("List of Treasure Island unigrams:")
@@ -81,32 +82,32 @@ ggsave("visualisations/treasure_island_wordcloud.jpg", plot = treasure_island_wo
 
 print("List of Catriona unigrams:")
 catriona_unigram
-ggsave("visualisations/catriona_wordcloud.eps", plot = catriona_wordcloud, width = 5.5, height = 5.5, dpi = 300)
-ggsave("visualisations/catriona_wordcloud.jpg", plot = catriona_wordcloud, width = 5.5, height = 5.5, dpi = 300)
+ggsave("visualisations/catriona_wordcloud.eps", plot = catriona_wordcloud, width = 7, height = 4, dpi = 300)
+ggsave("visualisations/catriona_wordcloud.jpg", plot = catriona_wordcloud, width = 7, height = 4, dpi = 300)
 
 
 print("List of Treasure Island unigrams without characters:")
 treasure_island_without_characters_unigrams
-ggsave("visualisations/treasure_island_no_characters_wordcloud.eps", plot = treasure_island_no_characters_wordcloud, width = 5, height = 4.5, dpi = 300)
-ggsave("visualisations/treasure_island_no_characters_wordcloud.jpg", plot = treasure_island_no_characters_wordcloud, width = 5, height = 4.5, dpi = 300)
+ggsave("visualisations/treasure_island_no_characters_wordcloud.eps", plot = treasure_island_no_characters_wordcloud, width = 5.9, height = 3.1, dpi = 300)
+ggsave("visualisations/treasure_island_no_characters_wordcloud.jpg", plot = treasure_island_no_characters_wordcloud, width = 5.9, height = 3.1, dpi = 300)
 
 
 print("List of Catriona unigrams without characters:")
 catriona_without_characters_unigrams
-ggsave("visualisations/catriona_no_characters_wordcloud.eps", plot = catriona_no_characters_wordcloud, width = 6, height = 5.5, dpi = 300)
-ggsave("visualisations/catriona_no_characters_wordcloud.jpg", plot = catriona_no_characters_wordcloud, width = 6, height = 5.5, dpi = 300)
+ggsave("visualisations/catriona_no_characters_wordcloud.eps", plot = catriona_no_characters_wordcloud, width = 6, height = 5, dpi = 300)
+ggsave("visualisations/catriona_no_characters_wordcloud.jpg", plot = catriona_no_characters_wordcloud, width = 6, height = 5, dpi = 300)
 
 
 print("List of Treasure Island bigrams:")
 bigrams_treasure_island
-ggsave("visualisations/treasure_island_bigrams_wordcloud.eps", plot = treasure_island_bigrams_wordcloud, width = 6, height = 6, dpi = 300)
-ggsave("visualisations/treasure_island_bigrams_wordcloud.jpg", plot = treasure_island_bigrams_wordcloud, width = 6, height = 6, dpi = 300)
+ggsave("visualisations/treasure_island_bigrams_wordcloud.eps", plot = treasure_island_bigrams_wordcloud, width = 6.5, height = 6, dpi = 300)
+ggsave("visualisations/treasure_island_bigrams_wordcloud.jpg", plot = treasure_island_bigrams_wordcloud, width = 6.5, height = 6, dpi = 300)
 
 
 print("List of Catriona bigrams:")
 bigrams_catriona
-ggsave("visualisations/catriona_bigrams_wordcloud.eps", plot = catriona_bigrams_wordcloud, width = 5, height = 5, dpi = 300)
-ggsave("visualisations/catriona_bigrams_wordcloud.jpg", plot = catriona_bigrams_wordcloud, width = 5, height = 5, dpi = 300)
+ggsave("visualisations/catriona_bigrams_wordcloud.eps", plot = catriona_bigrams_wordcloud, width = 6, height = 4, dpi = 300)
+ggsave("visualisations/catriona_bigrams_wordcloud.jpg", plot = catriona_bigrams_wordcloud, width = 6, height = 4, dpi = 300)
 
 
 print("List of Treasure Island bigrams without characters:")
@@ -117,8 +118,8 @@ ggsave("visualisations/treasure_island_bigrams_no_characters_wordcloud.jpg", plo
 
 print("List of Catriona bigrams without characters:")
 bigrams_catriona_nocharacters
-ggsave("visualisations/catriona_bigrams_no_characters_wordcloud.eps", plot = catriona_bigrams_no_characters_wordcloud, width = 5, height = 4.5, dpi = 300)
-ggsave("visualisations/catriona_bigrams_no_characters_wordcloud.jpg", plot = catriona_bigrams_no_characters_wordcloud, width = 5, height = 4.5, dpi = 300)
+ggsave("visualisations/catriona_bigrams_no_characters_wordcloud.eps", plot = catriona_bigrams_no_characters_wordcloud, width = 6, height = 4, dpi = 300)
+ggsave("visualisations/catriona_bigrams_no_characters_wordcloud.jpg", plot = catriona_bigrams_no_characters_wordcloud, width = 6, height = 4, dpi = 300)
 
 
 print("List of TF-IDF values of unigrams of both books:")
@@ -145,6 +146,13 @@ ggsave("visualisations/bigrams_tf_idf_without_characters_visualisation.eps", plo
 ggsave("visualisations/bigrams_tf_idf_without_characters_visualisation.jpg", plot = bigrams_tf_idf_without_characters_visualisation, width = 6, height = 7.5, dpi = 300)
 
 
+print("List of TF-IDF values for presentation:")
+ggsave("visualisations/unigrams_tf_idf_without_characters_visualisation_presentation.png", plot = unigrams_tf_idf_without_characters_visualisation_presentation, width = 6, height = 7.5, dpi = 300)
+ggsave("visualisations/bigrams_tf_idf_without_characters_visualisation_presentation.png", plot = bigrams_tf_idf_without_characters_visualisation_presentation, width = 6, height = 7.5, dpi = 300)
+ggsave("visualisations/unigrams_tf_idf_visualisation_presentation.png", plot = unigrams_tf_idf_visualisation_presentation, width = 6, height = 7.5, dpi = 300)
+ggsave("visualisations/bigrams_tf_idf_visualisation_presentation.png", plot = bigrams_tf_idf_visualisation_presentation, width = 6, height = 7.5, dpi = 300)
+
+
 print("Visualisation of graphs to select optimal topic number for topic modelling:")
 postscript("visualisations/book_wise_topicmodeling_number_of_topics.eps", width = 5, height = 5, horizontal = FALSE, onefile = FALSE, paper = "special")
 FindTopicsNumber_plot(values_for_books)
@@ -152,12 +160,26 @@ dev.off()
 ggsave("visualisations/book_wise_topicmodeling_number_of_topics.jpg", plot =book_wise_topicmodeling_number_of_topics , width = 5, height = 5, dpi = 300)
 
 
-
 print("Visualisation showing each topic proportion for the books:")
 ggsave("visualisations/proportion_of_each_topic_visualisation.eps", plot = proportion_of_each_topic_visualisation, width = 6, height = 5.5, dpi = 300)
 ggsave("visualisations/proportion_of_each_topic_visualisation.jpg", plot = proportion_of_each_topic_visualisation, width = 6, height = 5.5, dpi = 300)
+print("Topic distribution table for topic numbers 4,5,6,7, and 8:")
+topic_distribution_table_4
+topic_distribution_table_5
+topic_distribution_table_6
+topic_distribution_table_7
+topic_distribution_table_8
+print("Line charts showing how each book is distributed over 4,5,6,7, and 8 topics respectively ")
+graph_table_4 + graph_table_5 + graph_table_6 + graph_table_7 + graph_table_8
 
 
+print("Sentence level sentiment analysis:")
+ggsave("visualisations/sentence_level_sentiment_analysis.eps", plot = sentence_level_sentiment_analysis, width = 6, height = 5.5, dpi = 300)
+ggsave("visualisations/sentence_level_sentiment_analysis.jpg", plot = sentence_level_sentiment_analysis, width = 6, height = 5.5, dpi = 300)
+
+
+print("Simple vs. complex word analysis:")
+percentage_table_wide
 
 
 

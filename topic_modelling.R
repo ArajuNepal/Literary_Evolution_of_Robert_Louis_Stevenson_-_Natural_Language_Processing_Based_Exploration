@@ -26,52 +26,248 @@ book_wise_topicmodeling_number_of_topics <- FindTopicsNumber_plot(values_for_boo
 book_wise_topicmodeling_number_of_topics
 
 
+
+# Topic number = 4
+
 # Implementing LDA
-books_lda <- LDA(books_dtm, k = 6, control = list(seed = 1234))
+books_lda_4 <- LDA(books_dtm, k = 4, control = list(seed = 1234))
 
-#terms(books_lda,5) # you can see top 5 words for each topic
-book_topics <- tidy(books_lda, matrix = "beta")    # Each row gives the robability(beta) of a word belonging to a specific topic
-
+#terms(books_lda_4,5) # you can see top 5 words for each topic
+book_topics_4 <- tidy(books_lda_4, matrix = "beta")    # Each row gives the robability(beta) of a word belonging to a specific topic
 
 #This turned the model into a one-topic-per-term-per-row format. LDA generates a model that associates each document, here book, with a probability distribution over topics
-book_topics_top_terms <- book_topics %>%
+book_topics_top_terms_4 <- book_topics_4 %>%
   group_by(topic) %>%
   slice_max(beta, n = 99) %>%     # Get top 99 words for each topic
   ungroup() %>%
   arrange(topic, -beta)
 
+book_topic_gamma_4 <- tidy(books_lda_4, matrix = "gamma")   # Gamma matrix : probability distribution of topics within each book (document) 
 
-book_topic_gamma <- tidy(books_lda, matrix = "gamma")   # Gamma matrix : probability distribution of topics within each book (document) 
-book_topic_gamma
-
-
-#Visualising the proportion of the 6 topics across both books 
-proportion_of_each_topic_visualisation <- book_topic_gamma %>%
-  ggplot(aes(x = document, y = gamma, fill = factor(topic), label = round(gamma,2))) +
-  geom_col(position = "fill") +
-  geom_text(aes(group = topic), position = position_fill(vjust = 0.5), size = 2.5, color = "white" ) + 
-  labs(title = "Proportion of topics in each book",
-       x = "Book", y = "Topic proportion", fill = "Topic") +
-  theme_minimal() + 
-  scale_fill_manual(
-    values = c(
-      "1" = "#657b9e",
-      "2" = "#5e93cf",
-      "3" = "#223692",
-      "4" = "#c8775d", 
-      "5" = "#866042",
-      "6" = "#bd701e"
-    ), ,
-    labels = c(
-      "1" = "Topic 1 - Adventure related words & interaction",
-      "2" = "Topic 2 - Emotional theme",
-      "3" = "Topic 3 - Adventure",
-      "4" = "Topic 4 - Loss",
-      "5" = "Topic 5 - Family",
-      "6" = "Topic 6 - Adventure and exploration"
-    )
+# Topic distribution table for topic number 4
+topic_distribution_table_4 <- book_topic_gamma_4 %>%
+  mutate(gamma = gamma * 100) %>%  # converting to percentage
+  pivot_wider(names_from = document, values_from = gamma) %>%  # spreading documents into columns
+  arrange(topic) %>% 
+  rename(
+    `Topic` = topic,
+    `Catriona (%)` = `Catriona`,
+    `Treasure Island (%)` = `Treasure Island`
+  ) %>%
+  mutate(
+    `Catriona (%)` = if_else(`Catriona (%)` < 0.001, "< 10^-6", sprintf("%.2f", `Catriona (%)`)),
+    `Treasure Island (%)` = if_else(`Treasure Island (%)` < 0.001, "< 10^-6", sprintf("%.2f", `Treasure Island (%)`))
   )
 
+
+
+# Topic number = 5
+
+# Implementing LDA
+books_lda_5 <- LDA(books_dtm, k = 5, control = list(seed = 1234))
+
+#terms(books_lda,5) # you can see top 5 words for each topic
+book_topics_5 <- tidy(books_lda_5, matrix = "beta")    # Each row gives the robability(beta) of a word belonging to a specific topic
+
+#This turned the model into a one-topic-per-term-per-row format. LDA generates a model that associates each document, here book, with a probability distribution over topics
+book_topics_top_terms_5 <- book_topics_5 %>%
+  group_by(topic) %>%
+  slice_max(beta, n = 99) %>%     # Get top 99 words for each topic
+  ungroup() %>%
+  arrange(topic, -beta)
+
+book_topic_gamma_5 <- tidy(books_lda_5, matrix = "gamma")   # Gamma matrix : probability distribution of topics within each book (document) 
+
+# Topic distribution table for topic number 6
+topic_distribution_table_5 <- book_topic_gamma_5 %>%
+  mutate(gamma = gamma * 100) %>%  # converting to percentage
+  pivot_wider(names_from = document, values_from = gamma) %>%  # spreading documents into columns
+  arrange(topic) %>% 
+  rename(
+    `Topic` = topic,
+    `Catriona (%)` = `Catriona`,
+    `Treasure Island (%)` = `Treasure Island`
+  ) %>%
+  mutate(
+    `Catriona (%)` = if_else(`Catriona (%)` < 0.001, "< 10^-6", sprintf("%.2f", `Catriona (%)`)),
+    `Treasure Island (%)` = if_else(`Treasure Island (%)` < 0.001, "< 10^-6", sprintf("%.2f", `Treasure Island (%)`))
+  )
+
+
+
+# Topic number = 6
+
+# Implementing LDA
+books_lda_6 <- LDA(books_dtm, k = 6, control = list(seed = 1234))
+
+#terms(books_lda,5) # you can see top 5 words for each topic
+book_topics_6 <- tidy(books_lda_6, matrix = "beta")    # Each row gives the robability(beta) of a word belonging to a specific topic
+
+#This turned the model into a one-topic-per-term-per-row format. LDA generates a model that associates each document, here book, with a probability distribution over topics
+book_topics_top_terms_6 <- book_topics_6 %>%
+  group_by(topic) %>%
+  slice_max(beta, n = 99) %>%     # Get top 99 words for each topic
+  ungroup() %>%
+  arrange(topic, -beta)
+
+book_topic_gamma_6 <- tidy(books_lda_6, matrix = "gamma")   # Gamma matrix : probability distribution of topics within each book (document) 
+
+# Topic distribution table for topic number 6
+topic_distribution_table_6 <- book_topic_gamma_6 %>%
+  mutate(gamma = gamma * 100) %>%  # converting to percentage
+  pivot_wider(names_from = document, values_from = gamma) %>%  # spreading documents into columns
+  arrange(topic) %>% 
+  rename(
+    `Topic` = topic,
+    `Catriona (%)` = `Catriona`,
+    `Treasure Island (%)` = `Treasure Island`
+  ) %>%
+  mutate(
+    `Catriona (%)` = if_else(`Catriona (%)` < 0.001, "< 10^-6", sprintf("%.2f", `Catriona (%)`)),
+    `Treasure Island (%)` = if_else(`Treasure Island (%)` < 0.001, "< 10^-6", sprintf("%.2f", `Treasure Island (%)`))
+  )
+
+
+
+# Topic number = 7 
+
+# Implementing LDA
+books_lda_7 <- LDA(books_dtm, k = 7, control = list(seed = 1234))
+
+#terms(books_lda,5) # you can see top 5 words for each topic
+book_topics_7 <- tidy(books_lda_7, matrix = "beta")    # Each row gives the robability(beta) of a word belonging to a specific topic
+
+#This turned the model into a one-topic-per-term-per-row format. LDA generates a model that associates each document, here book, with a probability distribution over topics
+book_topics_top_terms_7 <- book_topics_7 %>%
+  group_by(topic) %>%
+  slice_max(beta, n = 99) %>%     # Get top 99 words for each topic
+  ungroup() %>%
+  arrange(topic, -beta)
+
+book_topic_gamma_7 <- tidy(books_lda_7, matrix = "gamma")   # Gamma matrix : probability distribution of topics within each book (document) 
+
+# Topic distribution table for topic number 7
+topic_distribution_table_7 <- book_topic_gamma_7 %>%
+  mutate(gamma = gamma * 100) %>%  # converting to percentage
+  pivot_wider(names_from = document, values_from = gamma) %>%  # spreading documents into columns
+  arrange(topic) %>% 
+  rename(
+    `Topic` = topic,
+    `Catriona (%)` = `Catriona`,
+    `Treasure Island (%)` = `Treasure Island`
+  )
+
+
+
+# Topic number = 8 
+
+# Implementing LDA
+books_lda_8 <- LDA(books_dtm, k = 8, control = list(seed = 1234))
+
+#terms(books_lda,5) # you can see top 5 words for each topic
+book_topics_8 <- tidy(books_lda_8, matrix = "beta")    # Each row gives the robability(beta) of a word belonging to a specific topic
+
+#This turned the model into a one-topic-per-term-per-row format. LDA generates a model that associates each document, here book, with a probability distribution over topics
+book_topics_top_terms_8 <- book_topics_8 %>%
+  group_by(topic) %>%
+  slice_max(beta, n = 99) %>%     # Get top 99 words for each topic
+  ungroup() %>%
+  arrange(topic, -beta)
+
+book_topic_gamma_8 <- tidy(books_lda_8, matrix = "gamma")   # Gamma matrix : probability distribution of topics within each book (document) 
+
+# Topic distribution table for topic number 8
+topic_distribution_table_8 <- book_topic_gamma_8 %>%
+  mutate(gamma = gamma * 100) %>%  # converting to percentage
+  pivot_wider(names_from = document, values_from = gamma) %>%  # spreading documents into columns
+  arrange(topic) %>% 
+  rename(
+    `Topic` = topic,
+    `Catriona (%)` = `Catriona`,
+    `Treasure Island (%)` = `Treasure Island`
+  )
+
+
+
+# Line charts
+graph_table_4 <- ggplot(book_topic_gamma_4, aes(x = topic, y = gamma, color = document, group = document)) +
+  geom_line(linewidth = 1) +
+  geom_point(linewidth = 3) +
+  labs(title = "For 4 topics",
+       x = "Topic Number",
+       y = "Gamma (Topic Proportion)") +
+  scale_x_continuous(breaks = 1:6) +
+  scale_y_continuous(
+    breaks = seq(0, 0.6, by = 0.1),  # Sets breaks at 0, 0.1, 0.2, ..., 1
+    limits = c(0, 0.6)  # Ensures the y-axis starts at 0 and ends at 1
+  ) +
+  scale_color_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d")) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+
+
+graph_table_5 <- ggplot(book_topic_gamma_5, aes(x = topic, y = gamma, color = document, group = document)) +
+  geom_line(linewidth = 1) +
+  geom_point(linewidth = 3) +
+  labs(title = "For 5 topics",
+       x = "Topic Number",
+       y = "Gamma (Topic Proportion)") +
+  scale_x_continuous(breaks = 1:6) +
+  scale_y_continuous(
+    breaks = seq(0, 0.6, by = 0.1),  # Sets breaks at 0, 0.1, 0.2, ..., 1
+    limits = c(0, 0.6)  # Ensures the y-axis starts at 0 and ends at 1
+  ) +
+  scale_color_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d")) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+
+
+graph_table_6 <- ggplot(book_topic_gamma_6, aes(x = topic, y = gamma, color = document, group = document)) +
+  geom_line(linewidth = 1) +
+  geom_point(linewidth = 3) +
+  labs(title = "For 6 topics",
+       x = "Topic Number",
+       y = "Gamma (Topic Proportion)") +
+  scale_x_continuous(breaks = 1:6) +
+  scale_y_continuous(
+    breaks = seq(0, 0.6, by = 0.1),  # Sets breaks at 0, 0.1, 0.2, ..., 1
+    limits = c(0, 0.6)  # Ensures the y-axis starts at 0 and ends at 1
+  ) +
+  scale_color_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d")) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+
+
+graph_table_7 <- ggplot(book_topic_gamma_7, aes(x = topic, y = gamma, color = document, group = document)) +
+  geom_line(linewidth = 1) +
+  geom_point(linewidth = 3) +
+  labs(title = "For 7 topics",
+       x = "Topic Number",
+       y = "Gamma (Topic Proportion)") +
+  scale_x_continuous(breaks = 1:6) +
+  scale_y_continuous(
+    breaks = seq(0, 0.6, by = 0.1),  # Sets breaks at 0, 0.1, 0.2, ..., 1
+    limits = c(0, 0.6)  # Ensures the y-axis starts at 0 and ends at 1
+  ) +
+  scale_color_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d")) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+
+
+graph_table_8 <- ggplot(book_topic_gamma_8, aes(x = topic, y = gamma, color = document, group = document)) +
+  geom_line(linewidth = 1) +
+  geom_point(linewidth = 3) +
+  labs(title = "For 8 topics",
+       x = "Topic Number",
+       y = "Gamma (Topic Proportion)") +
+  scale_x_continuous(breaks = 1:6) +
+  scale_y_continuous(
+    breaks = seq(0, 0.6, by = 0.1),  # Sets breaks at 0, 0.1, 0.2, ..., 1
+    limits = c(0, 0.6)  # Ensures the y-axis starts at 0 and ends at 1
+  ) +
+  scale_color_manual(values = c("Catriona" = "#657b9e", "Treasure Island" = "#c8775d")) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
 
 
 
@@ -86,9 +282,6 @@ topic_present <- book_topic_gamma %>%
 topics_in_both_books <- topic_present %>%
   filter(lengths(books_present) == 2)
 topics_in_both_books
-
-
-
 
 
 
