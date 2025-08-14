@@ -60,6 +60,3 @@ percentage_table_wide
 
 
 
-
-# https://r-packages.io/datasets/data_syllables_en?
-
