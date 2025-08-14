@@ -1,7 +1,7 @@
 # Description: Main script file for running the complete NLP pipeline to study the  differences/similarities between 'Treasure Island' and 'Catriona' using NLP.
 #              Includes loading libraries, loading data, data processing, word frequency analysis, TF-IDF analysis, topic modelling and exporting visualisations
 # Author: Araju Mepal
-# Last modified: August 10, 2025
+# Last modified: August 14, 2025
 
 
 ## Load libraries ----
@@ -58,32 +58,32 @@ ggsave("visualisations/additional_stopwords_in_each_book_visualisation.jpg", plo
 
 
 print("Visualisation of common additional stopwords in each book:")
-ggsave("visualisations/common_additional_stopwords_visualisation.eps", plot = common_additional_stopwords_visualisation, width = 4, height = 4, dpi = 300)
-ggsave("visualisations/common_additional_stopwords_visualisation.jpg", plot = common_additional_stopwords_visualisation, width = 4, height = 4, dpi = 300)
+ggsave("visualisations/common_additional_stopwords_visualisation.eps", plot = common_additional_stopwords_visualisation, width = 4, height = 5.5, dpi = 300)
+ggsave("visualisations/common_additional_stopwords_visualisation.jpg", plot = common_additional_stopwords_visualisation, width = 4, height = 5.5, dpi = 300)
 
 
 print("List of manually identified non standard English forms from the corpus is as follows:")
 non_standard_english_forms_detection
-ggsave("visualisations/scottish_english_words_visualisations.eps", plot = non_standard_english_words_visualisations, width = 4, height = 6, dpi = 300)
-ggsave("visualisations/scottish_english_words_visualisations.jpg", plot = non_standard_english_words_visualisations, width = 4, height = 6, dpi = 300)
+ggsave("visualisations/non_standard_english_words_visualisations.eps", plot = non_standard_english_words_visualisations, width = 4, height = 7.3, dpi = 300)
+ggsave("visualisations/non_standard_english_words_visualisations.jpg", plot = non_standard_english_words_visualisations, width = 4, height = 7.3, dpi = 300)
 non_standard_english_words_visualisations
 
-print("List of common Scottish English words present in both the books:")
+print("List of common non-standard English words present in both the books:")
 common_scottish_english_words
-ggsave("visualisations/common_non_standard_english_forms_visualisation.eps", plot = common_non_standard_english_forms_visualisation, width = 4.5, height = 4, dpi = 300)
-ggsave("visualisations/common_non_standard_english_forms_visualisation.jpg", plot = common_non_standard_english_forms_visualisation, width = 4.5, height = 4, dpi = 300)
+ggsave("visualisations/common_non_standard_english_forms_visualisation.eps", plot = common_non_standard_english_forms_visualisation, width = 4.5, height = 5.5, dpi = 300)
+ggsave("visualisations/common_non_standard_english_forms_visualisation.jpg", plot = common_non_standard_english_forms_visualisation, width = 4.5, height = 5.5, dpi = 300)
 
 
 print("List of Treasure Island unigrams:")
 treasure_island_unigram
-ggsave("visualisations/treasure_island_wordcloud.eps", plot = treasure_island_wordcloud, width = 4.5, height = 5, dpi = 300)
-ggsave("visualisations/treasure_island_wordcloud.jpg", plot = treasure_island_wordcloud, width = 4.5, height = 5, dpi = 300)
+ggsave("visualisations/treasure_island_wordcloud.eps", plot = treasure_island_wordcloud, width = 5.5, height = 3.4, dpi = 300)
+ggsave("visualisations/treasure_island_wordcloud.jpg", plot = treasure_island_wordcloud, width = 5.5, height = 3.4, dpi = 300)
 
 
 print("List of Catriona unigrams:")
 catriona_unigram
-ggsave("visualisations/catriona_wordcloud.eps", plot = catriona_wordcloud, width = 7, height = 4, dpi = 300)
-ggsave("visualisations/catriona_wordcloud.jpg", plot = catriona_wordcloud, width = 7, height = 4, dpi = 300)
+ggsave("visualisations/catriona_wordcloud.eps", plot = catriona_wordcloud, width = 7.7, height = 3.6, dpi = 300)
+ggsave("visualisations/catriona_wordcloud.jpg", plot = catriona_wordcloud, width = 7.7, height = 3.6, dpi = 300)
 
 
 print("List of Treasure Island unigrams without characters:")
@@ -94,26 +94,26 @@ ggsave("visualisations/treasure_island_no_characters_wordcloud.jpg", plot = trea
 
 print("List of Catriona unigrams without characters:")
 catriona_without_characters_unigrams
-ggsave("visualisations/catriona_no_characters_wordcloud.eps", plot = catriona_no_characters_wordcloud, width = 6, height = 5, dpi = 300)
-ggsave("visualisations/catriona_no_characters_wordcloud.jpg", plot = catriona_no_characters_wordcloud, width = 6, height = 5, dpi = 300)
+ggsave("visualisations/catriona_no_characters_wordcloud.eps", plot = catriona_no_characters_wordcloud, width = 6.5, height = 4, dpi = 300)
+ggsave("visualisations/catriona_no_characters_wordcloud.jpg", plot = catriona_no_characters_wordcloud, width = 6.5, height = 4, dpi = 300)
 
 
 print("List of Treasure Island bigrams:")
 bigrams_treasure_island
-ggsave("visualisations/treasure_island_bigrams_wordcloud.eps", plot = treasure_island_bigrams_wordcloud, width = 6.5, height = 6, dpi = 300)
-ggsave("visualisations/treasure_island_bigrams_wordcloud.jpg", plot = treasure_island_bigrams_wordcloud, width = 6.5, height = 6, dpi = 300)
+ggsave("visualisations/treasure_island_bigrams_wordcloud.eps", plot = treasure_island_bigrams_wordcloud, width = 6.5, height = 4.5, dpi = 300)
+ggsave("visualisations/treasure_island_bigrams_wordcloud.jpg", plot = treasure_island_bigrams_wordcloud, width = 6.5, height = 4.5, dpi = 300)
 
 
 print("List of Catriona bigrams:")
 bigrams_catriona
-ggsave("visualisations/catriona_bigrams_wordcloud.eps", plot = catriona_bigrams_wordcloud, width = 6, height = 4, dpi = 300)
-ggsave("visualisations/catriona_bigrams_wordcloud.jpg", plot = catriona_bigrams_wordcloud, width = 6, height = 4, dpi = 300)
+ggsave("visualisations/catriona_bigrams_wordcloud.eps", plot = catriona_bigrams_wordcloud, width = 6.5, height = 3.5, dpi = 300)
+ggsave("visualisations/catriona_bigrams_wordcloud.jpg", plot = catriona_bigrams_wordcloud, width = 6.5, height = 3.5, dpi = 300)
 
 
 print("List of Treasure Island bigrams without characters:")
 bigrams_treasure_island_nocharacters
-ggsave("visualisations/treasure_island_bigrams_no_characters_wordcloud.eps", plot = treasure_island_bigrams_no_characters_wordcloud, width = 7, height = 6, dpi = 300)
-ggsave("visualisations/treasure_island_bigrams_no_characters_wordcloud.jpg", plot = treasure_island_bigrams_no_characters_wordcloud, width = 7, height = 6, dpi = 300)
+ggsave("visualisations/treasure_island_bigrams_no_characters_wordcloud.eps", plot = treasure_island_bigrams_no_characters_wordcloud, width = 7.5, height = 5, dpi = 300)
+ggsave("visualisations/treasure_island_bigrams_no_characters_wordcloud.jpg", plot = treasure_island_bigrams_no_characters_wordcloud, width = 7.5, height = 5, dpi = 300)
 
 
 print("List of Catriona bigrams without characters:")

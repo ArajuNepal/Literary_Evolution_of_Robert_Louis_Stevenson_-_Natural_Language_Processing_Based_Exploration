@@ -26,13 +26,13 @@ treasure_island_unigram_top <- head(treasure_island_unigram, 50) %>%
 # Treasure Island unigrams wordcloud
 treasure_island_wordcloud <- ggplot(treasure_island_unigram_top, aes(label = word, size = n, color = color_group)) + 
   geom_text_wordcloud() + 
-  scale_size_area(max_size = 20, trans = power_trans(1/.65)) + 
-  scale_color_manual(values = c("group1" = "#c8775d", 
-                                "group2" = "#866042", 
-                                "group3" = "#bd701e")) +
+  scale_size_area(max_size = 12) +   
+  scale_color_manual(values = c(
+    "group1" = "#c8775d", 
+    "group2" = "#866042", 
+    "group3" = "#bd701e")) +
   theme_minimal() +
   theme(legend.position = "none")
-treasure_island_wordcloud
 
 
 # Extracting top 50 unigrams for Catriona
@@ -42,7 +42,7 @@ catriona_unigram_top <- head(catriona_unigram, 50) %>%
 # Catriona unigrams wordcloud
 catriona_wordcloud <- ggplot(head(catriona_unigram_top, 50), aes(label = word, size = n, color = color_group)) +  
   geom_text_wordcloud() + 
-  scale_size_area(max_size = 20, trans = power_trans(1/.7)) + 
+  scale_size_area(max_size = 13) + 
   scale_color_manual(values = c("group1" = "#657b9e", 
                                 "group2" = "#5e93cf", 
                                 "group3" = "#223692")) +
@@ -72,7 +72,7 @@ treasure_island_unigram_no_characters <- head(treasure_island_without_characters
 
 treasure_island_no_characters_wordcloud <- ggplot(head(treasure_island_unigram_no_characters, 50), aes(label = word, size = n, color = color_group)) +  # the value 3 is the number of colors used in the wordcloud
   geom_text_wordcloud() + 
-  scale_size_area(max_size = 20, trans = power_trans(1/.7)) + 
+  scale_size_area(max_size = 12) + 
   scale_color_manual(values = c("group1" = "#c8775d", 
                                 "group2" = "#866042", 
                                 "group3" = "#bd701e")) +
@@ -86,7 +86,7 @@ catriona_unigram_no_characters <- head(catriona_without_characters_unigrams, 50)
 
 catriona_no_characters_wordcloud <- ggplot(head(catriona_unigram_no_characters, 50), aes(label = word, size = n, color = color_group)) +  # the value 3 is the number of colors used in the wordcloud
   geom_text_wordcloud() + 
-  scale_size_area(max_size = 20, trans = power_trans(1/.7)) +
+  scale_size_area(max_size = 13) +
   scale_color_manual(values = c("group1" = "#657b9e", 
                                 "group2" = "#5e93cf", 
                                 "group3" = "#223692")) +
@@ -127,7 +127,7 @@ treasure_island_bigrams <- head(bigrams_treasure_island_united, 50) %>%
 
 treasure_island_bigrams_wordcloud <- ggplot(treasure_island_bigrams, aes(label = bigram, size = n, color = color_group)) +  # the value 3 is the number of colors used in the wordcloud
   geom_text_wordcloud() + 
-  scale_size_area(max_size = 20, trans = power_trans(1/.7)) + 
+  scale_size_area(max_size = 12) + 
   scale_color_manual(values = c("group1" = "#c8775d", 
                                 "group2" = "#866042", 
                                 "group3" = "#bd701e")) +
@@ -140,7 +140,7 @@ catriona_bigrams <- head(bigrams_catriona_united, 50) %>%
 
 catriona_bigrams_wordcloud <- ggplot(catriona_bigrams, aes(label = bigram, size = n, color = color_group)) +  # the value 3 is the number of colors used in the wordcloud
   geom_text_wordcloud() + 
-  scale_size_area(max_size = 20, trans = power_trans(1/.7)) + 
+  scale_size_area(max_size = 14) + 
   scale_color_manual(values = c("group1" = "#657b9e", 
                                 "group2" = "#5e93cf", 
                                 "group3" = "#223692")) +
@@ -188,7 +188,7 @@ treasure_island_bigrams_no_characters <- head(bigrams_treasure_island_without_ch
 treasure_island_bigrams_no_characters_wordcloud <- ggplot(treasure_island_bigrams_no_characters, 
                                                           aes(label = bigram, size = n, color = color_group)) +   
   geom_text_wordcloud() + 
-  scale_size_area(max_size = 20, trans = power_trans(1/.7)) +   
+  scale_size_area(max_size = 12) +   
   scale_color_manual(values = c("group1" = "#c8775d", 
                                 "group2" = "#866042", 
                                 "group3" = "#bd701e")) +
@@ -203,7 +203,7 @@ catriona_bigrams_no_characters <- head(bigrams_catriona_without_characters, 50) 
 catriona_bigrams_no_characters_wordcloud <- ggplot(catriona_bigrams_no_characters, 
                                                    aes(label = bigram, size = n, color = color_group)) +  # the value 3 is the number of colors used in the wordcloud
   geom_text_wordcloud() + 
-  scale_size_area(max_size = 10, trans = power_trans(1/.7)) + 
+  scale_size_area(max_size = 13) + 
   scale_color_manual(values = c("group1" = "#657b9e", 
                                 "group2" = "#5e93cf", 
                                 "group3" = "#223692")) +
@@ -271,6 +271,7 @@ common_non_standard_english_forms <- non_standard_english_forms_detection %>%
   filter(n_distinct(book) > 1) %>%
   ungroup() %>%
   arrange(word)
+
 
 word_summary <- common_non_standard_english_forms %>%
   group_by(word, book) %>%
